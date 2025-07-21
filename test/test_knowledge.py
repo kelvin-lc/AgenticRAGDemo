@@ -3,6 +3,13 @@
 测试知识库是否正确加载和检索
 """
 
+import sys
+from pathlib import Path
+
+# 添加项目根目录到Python路径
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 from src.knowledges.projects_csv_knowledge import project_knowledge_base
 from src.knowledges.relationships_csv_knowledge import relationships_knowledge_base
 

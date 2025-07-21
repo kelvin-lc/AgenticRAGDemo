@@ -6,6 +6,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.staticfiles import StaticFiles
 
+import sys
+from pathlib import Path
+
+# 添加项目根目录到Python路径
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 from src.api.api_v1 import api_router
 from src.config import settings
 
@@ -89,4 +96,4 @@ app.include_router(api_router, prefix=settings.API_PREFIX)
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="0.0.0.0")
+    uvicorn.run("main:app", host="0.0.0.0", port=8001)

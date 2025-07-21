@@ -109,37 +109,34 @@
 ### 环境要求
 - Python 3.12+
 - uv包管理器
-- OpenAI API密钥
+- OpenAI API密钥。Model也可以使用其他模型，环境变量均在 config.py 中配置。
 
 ### 安装步骤
 ```bash
 # 克隆项目
-git clone <repository-url>
+git clone git@github.com:kelvin-lc/AgenticRAGDemo.git
 cd AgenticRAGDemo
 
 # 安装依赖
 uv sync
 
-# 配置环境变量
-cp .env.example .env
-# 编辑.env文件，添加你的OpenAI API密钥
-```
-
-### 运行测试
-```bash
-# 运行所有测试
-uv run python test/run_all_tests.py
-
-# 运行单个测试
-uv run python test/test_csv_data.py
-uv run python test/test_knowledge.py
-uv run python test/test_agent_team.py
-```
-
 ### 启动服务
 ```bash
-# 启动FastAPI服务
+# 方式1: 使用启动脚本（推荐）
+uv run python start_server.py
+
+# 方式2: 直接启动
 uv run python src/main.py
+
+# 服务将在 http://localhost:8001 启动
+# API文档: http://localhost:8001/docs
+# 健康检查: http://localhost:8001/ping
+```
+
+### 发送请求
+
+```bash
+curl -X POST http://localhost:8001/api/v1/agent/completions -H "Content-Type: application/json" -d '{"message": "李四在哪里项目", "user_id": "test_user", "session_id": "test_session", "stream": false}'
 ```
 
 ## 开发路线图
@@ -148,7 +145,7 @@ uv run python src/main.py
 - [ ] Docker容器化
 - [ ] 多轮对话支持
 - [ ] 数据持久化层
-- [ ] 性能评估框架
+- [ ] 性能、评估等框架
 - [ ] 综合日志系统
 - [ ] 指标监控和告警
 - [ ] 单元和集成测试

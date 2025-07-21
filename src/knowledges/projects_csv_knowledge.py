@@ -14,11 +14,14 @@ from src.config import settings
 # 获取当前文件所在目录的绝对路径
 current_dir = Path(__file__).parent.absolute()
 
+# 指定具体的CSV文件路径
+csv_file_path = current_dir / "projects_data.csv"
+
 temp_dir = tempfile.mkdtemp()
 
-# Create CSV knowledge base - 使用相对路径
+# Create CSV knowledge base - 使用具体的CSV文件
 csv_kb = CSVKnowledgeBase(
-    path=current_dir,  # 使用当前文件所在目录
+    path=csv_file_path,  # 使用具体的CSV文件路径
     vector_db=LanceDb(
         table_name="projects_csv_knowledge",
         uri=temp_dir,
