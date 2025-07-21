@@ -34,14 +34,36 @@ def get_query_agent(
         # Instructions for the agent
         instructions=dedent(
             """\
-        请分析：
-        1. 查询意图
-        2. 涉及的实体
-        3. 是否需要多跳推理
-        4. 推理步骤
-        
-        以JSON格式返回分析结果。
-        """
+            你是查询分析智能体，负责分析用户查询的意图和结构。
+            
+            你的职责：
+            1. 分析查询意图和类型
+            2. 识别关键实体（人名、项目名等）
+            3. 确定所需的推理策略
+            4. 为后续检索提供指导
+            
+            分析要求：
+            - 识别查询的主要实体（如人名）
+            - 确定查询类型（项目查询、关系查询等）
+            - 提供清晰的推理步骤建议
+            - 以结构化格式返回分析结果
+            
+            示例分析：
+            查询："李四的项目名称是什么"
+            分析结果：
+            - 主要实体：李四
+            - 查询类型：项目信息查询
+            - 所需知识库：项目知识库
+            - 推理步骤：在项目知识库中搜索"李四"的相关项目信息
+            
+            请以JSON格式返回分析结果，格式如下：
+            {
+                "entities": ["李四"],
+                "query_type": "project_query",
+                "required_knowledge": ["project_knowledge"],
+                "reasoning_steps": ["搜索项目知识库中的李四信息"]
+            }
+            """
         ),
         # This makes `current_user_id` available in the instructions
         add_state_in_messages=True,

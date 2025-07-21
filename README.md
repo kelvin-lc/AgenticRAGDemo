@@ -119,25 +119,27 @@
 
 ## 快速开始
 
-### 环境要求
-- Python 3.12+
-- uv包管理器
-- OpenAI API密钥。Model也可以使用其他模型，环境变量均在 config.py 中配置。
+### 🔧 环境要求
+- 🐍 **Python**: 3.12+
+- 📦 **包管理器**: uv（推荐）或 pip
+- 🔑 **OpenAI API密钥**: 支持其他模型，环境变量均在 `config.py` 中配置
 
-### 安装步骤
+### 📦 安装步骤
+
+#### 1. 克隆项目
 ```bash
-# 克隆项目
 git clone git@github.com:kelvin-lc/AgenticRAGDemo.git
 cd AgenticRAGDemo
+```
 
-# 安装依赖
+#### 2. 安装依赖
 
-## 方式一：使用 uv（推荐）
+**方式一：使用 uv（推荐）**
 ```bash
 uv sync
 ```
 
-## 方式二：使用 pip
+**方式二：使用 pip**
 ```bash
 # 安装所有依赖
 pip install -r requirements.txt
@@ -146,32 +148,52 @@ pip install -r requirements.txt
 pip install -r requirements-minimal.txt
 ```
 
-# 设置环境变量
+#### 3. 设置环境变量
+```bash
 export OPENAI_API_KEY=your_openai_api_key
 export OPENAI_MODEL=gpt-4.1-nano
-
-### 启动服务
-方式一：
-cursor ide 中直接运行,使用.vscode/launch.json 配置启动
-方式二：
-```bash
-uv run python src/main.py
-
-# 服务将在 http://localhost:8001 启动
-# API文档: http://localhost:8001/docs
-# 健康检查: http://localhost:8001/ping
 ```
 
-### 发送请求
+### 🚀 启动服务
 
-默认模型较小，prompt还未优化，所以结果可能不准确，可尝试请求多次
+#### 方式一：IDE 启动
+在 Cursor IDE 中直接运行，使用 `.vscode/launch.json` 配置启动
 
-UI 界面直接点击发送
-
-http://localhost:8001/docs#/agent/run_agent_api_v1_agent_completions_post
-
+#### 方式二：命令行启动
 ```bash
-curl -X POST http://localhost:8001/api/v1/agent/completions -H "Content-Type: application/json" -d '{"message": "李四的项目名称是什么", "user_id": "test_user", "session_id": "test_session", "stream": false}'
+uv run python src/main.py
+```
+
+#### 服务访问地址
+- 🌐 **服务地址**: http://localhost:8001
+- 📚 **API文档**: http://localhost:8001/docs
+- 💚 **健康检查**: http://localhost:8001/ping
+
+### 🚀 发送请求
+
+> **注意**：默认模型较小，prompt还未优化，所以结果可能不准确，可尝试请求多次
+
+#### 方式一：Web UI 界面
+访问 [API文档界面](http://localhost:8001/docs#/agent/run_agent_api_v1_agent_completions_post) 直接点击发送
+
+#### 方式二：命令行请求
+```bash
+curl -X POST http://localhost:8001/api/v1/agent/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "李四的项目名称是什么", 
+    "user_id": "test_user", 
+    "session_id": "test_session", 
+    "stream": false
+  }'
+```
+
+#### 示例响应
+```json
+{
+  "content": "李四参与的项目名称是：\n- 智能客服系统\n- 移动端应用",
+  "status": "success"
+}
 ```
 
 ## 开发路线图
