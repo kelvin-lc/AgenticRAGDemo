@@ -1,4 +1,6 @@
 # Byte-compiled / optimized / DLL files
+.vscode/
+.env
 __pycache__/
 *.py[codz]
 *$py.class
@@ -180,6 +182,8 @@ cython_debug/
 # Ignore directories containing user credentials, local state, and settings.
 # Learn more at https://abstra.io/docs
 .abstra/
+
+src/.env
 
 # Visual Studio Code
 #  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 

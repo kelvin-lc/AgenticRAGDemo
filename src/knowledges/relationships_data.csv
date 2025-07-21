@@ -1,0 +1,9 @@
+relationship_id,person_a_id,person_a_name,person_b_id,person_b_name,是否相同的项目
+rel001,p001,张三,p002,李四,是
+rel002,p001,张三,p003,王五,是
+rel003,p002,李四,p003,王五,是
+rel004,p002,李四,p003,王五,是
+rel005,p001,张三,p004,赵六,否
+rel006,p004,赵六,p005,孙七,是
+rel007,p004,赵六,p005,孙七,是
+rel008,p001,张三,p005,孙七,否 

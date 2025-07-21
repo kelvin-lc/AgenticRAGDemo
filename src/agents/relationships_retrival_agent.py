@@ -1,0 +1,57 @@
+from textwrap import dedent
+from typing import Optional
+
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+
+from src.config import settings
+from src.knowledges.relationships_csv_knowledge import relationships_knowledge_base
+
+
+def get_relationships_agent(
+    model_id: str = settings.OPENAI_MODEL,
+    user_id: Optional[str] = None,
+    session_id: Optional[str] = None,
+    debug_mode: bool = settings.DEBUG_MODE,
+) -> Agent:
+    return Agent(
+        name="Relationships Agent",
+        agent_id="relationships_agent",
+        user_id=user_id,
+        session_id=session_id,
+        model=OpenAIChat(
+            id=model_id,
+            base_url=settings.OPENAI_BASE_URL,
+            api_key=settings.OPENAI_API_KEY,
+        ),
+        # Tools available to the agent
+        # Description of the agent
+        description=dedent(
+            """\
+            You are Relationships Agent, an advanced AI Agent specializing in Relationships.
+
+            Your goal is to help developers understand and use Relationships by providing clear explanations, functional code examples, and best-practice guidance for using Relationships.
+        """
+        ),
+        # Instructions for the agent
+        instructions=dedent(
+            """\
+            你是一个retrieval agent，主要职责是检索人际关系信息。
+
+            你的目标是通过提供的查询意图，检索人际关系信息。
+        """
+        ),
+        # This makes `current_user_id` available in the instructions
+        add_state_in_messages=True,
+        # -*- Knowledge -*-
+        # Add the knowledge base to the agent
+        knowledge=relationships_knowledge_base,
+        # Give the agent a tool to search the knowledge base (this is True by default but set here for clarity)
+        search_knowledge=True,
+        read_chat_history=True,
+        markdown=True,
+        # Add the current date and time to the instructions
+        add_datetime_to_instructions=True,
+        # Show debug logs
+        debug_mode=debug_mode,
+    )
