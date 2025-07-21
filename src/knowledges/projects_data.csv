@@ -1,6 +1,8 @@
 person_id,name,department,role,project_id,项目名称,role_in_project,start_date,end_date,technologies
 p001,张三,技术部,高级工程师,proj001,智能客服系统,技术负责人,2023-01-15,2023-06-30,"Python,FastAPI,PostgreSQL,Redis"
 p001,张三,技术部,高级工程师,proj002,数据分析平台,后端开发工程师,2023-07-01,2023-12-31,"Python,Django,MySQL,Docker"
+p002,李四,产品部,产品经理,proj001,智能客服系统,产品负责人,2023-01-15,2023-06-30,"产品设计,用户研究,原型设计"
+p002,李四,产品部,产品经理,proj003,移动端应用,产品经理,2023-08-15,2024-02-29,"产品规划,用户体验,需求分析"
 p003,王五,技术部,前端工程师,proj001,智能客服系统,前端开发工程师,2023-02-01,2023-06-30,"React,TypeScript,Ant Design,WebSocket"
 p003,王五,技术部,前端工程师,proj003,移动端应用,前端开发工程师,2023-08-15,2024-02-29,"React Native,TypeScript,Redux"
 p004,赵六,数据部,数据分析师,proj002,数据分析平台,数据分析师,2023-07-15,2023-12-31,"Python,Pandas,Matplotlib,Jupyter"

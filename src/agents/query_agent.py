@@ -50,6 +50,7 @@ def get_query_agent(
         markdown=True,
         # Add the current date and time to the instructions
         add_datetime_to_instructions=True,
+        reasoning=True,
         # Show debug logs
         debug_mode=debug_mode,
     )

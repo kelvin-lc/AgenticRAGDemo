@@ -106,7 +106,41 @@
 
 ## 快速开始
 
-[待实现：安装和设置说明]
+### 环境要求
+- Python 3.12+
+- uv包管理器
+- OpenAI API密钥
+
+### 安装步骤
+```bash
+# 克隆项目
+git clone <repository-url>
+cd AgenticRAGDemo
+
+# 安装依赖
+uv sync
+
+# 配置环境变量
+cp .env.example .env
+# 编辑.env文件，添加你的OpenAI API密钥
+```
+
+### 运行测试
+```bash
+# 运行所有测试
+uv run python test/run_all_tests.py
+
+# 运行单个测试
+uv run python test/test_csv_data.py
+uv run python test/test_knowledge.py
+uv run python test/test_agent_team.py
+```
+
+### 启动服务
+```bash
+# 启动FastAPI服务
+uv run python src/main.py
+```
 
 ## 开发路线图
 
