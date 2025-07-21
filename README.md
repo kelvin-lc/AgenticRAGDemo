@@ -1,10 +1,23 @@
-# AgenticRAGDemo
+# Agentic RAG Demo 🚀
 
-一个展示Agentic RAG（检索增强生成）架构的演示项目，通过多智能体协作实现增强的信息检索和推理能力。
+> 一个展示Agentic RAG（检索增强生成）架构的演示项目，通过多智能体协作实现增强的信息检索和推理能力。
 
-## 项目概述
+[![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.116+-green.svg)](https://fastapi.tiangolo.com/)
+[![Agno](https://img.shields.io/badge/Agno-1.7.5+-purple.svg)](https://github.com/agno-ai/agno)
+[![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)](LICENSE)
+
+## 📋 项目概述
 
 本项目实现了一个先进的RAG系统，通过多个专业智能体的协调工作，相比传统的单智能体RAG方法，能够提供更准确、全面和上下文相关的响应。
+
+### ✨ 核心特性
+
+- 🤖 **多智能体协作** - 基于Agno框架的智能体协调系统
+- 🔍 **智能检索** - 多轮迭代的信息检索和推理
+- 📊 **知识融合** - 多源知识的智能整合和分析
+- 🚀 **高性能** - 基于FastAPI的异步处理架构
+- 🎯 **精准回答** - 通过验证机制确保答案准确性
 
 ## 系统架构
 
@@ -81,9 +94,9 @@
 ### Mock知识库设计
 
 系统包含两个用于演示的Mock知识库：
-
-- **`project_csv_knowledge.csv`：** 团队成员的项目分配和贡献情况
-- **`relationships_csv_knowledge.csv`：** 人际关系和团队动态  
+由于mock数据较少，避免chunk被检索到，直接用两个不同的knowledge来模拟。
+- **`src/knowledges/projects_csv_knowledge.csv`：** 团队成员的项目分配和贡献情况。 `里面没有任何李四的信息`
+- **`src/knowledges/relationships_csv_knowledge.csv`：** 人际关系和团队动态。 `里面有李四和张三的关联信息`
 
 ### 查询处理示例
 
@@ -91,8 +104,8 @@
 
 **处理流程：**
 1. 查询分析智能体识别"李四"为主要实体，"项目"为目标信息
-2. 检索智能体在`project_csv_knowledge.csv`中搜索李四的项目分配
-3. 提取智能体可能根据需要扩展搜索到相关团队成员
+2. 在两个retriaval agent中进行检索，并行进行
+3. 解析和提取智能体可能根据需要扩展搜索到相关团队成员
 4. 验证智能体确保响应的完整性和准确性
 5. 返回最终答案给用户
 
@@ -118,14 +131,30 @@ git clone git@github.com:kelvin-lc/AgenticRAGDemo.git
 cd AgenticRAGDemo
 
 # 安装依赖
+
+## 方式一：使用 uv（推荐）
+```bash
 uv sync
+```
+
+## 方式二：使用 pip
+```bash
+# 安装所有依赖
+pip install -r requirements.txt
+
+# 或安装最小依赖
+pip install -r requirements-minimal.txt
+```
+
+# 设置环境变量
+export OPENAI_API_KEY=your_openai_api_key
+export OPENAI_MODEL=gpt-4.1-nano
 
 ### 启动服务
+方式一：
+cursor ide 中直接运行,使用.vscode/launch.json 配置启动
+方式二：
 ```bash
-# 方式1: 使用启动脚本（推荐）
-uv run python start_server.py
-
-# 方式2: 直接启动
 uv run python src/main.py
 
 # 服务将在 http://localhost:8001 启动
@@ -135,15 +164,21 @@ uv run python src/main.py
 
 ### 发送请求
 
+默认模型较小，prompt还未优化，所以结果可能不准确，可尝试请求多次
+
+UI 界面直接点击发送
+
+http://localhost:8001/docs#/agent/run_agent_api_v1_agent_completions_post
+
 ```bash
-curl -X POST http://localhost:8001/api/v1/agent/completions -H "Content-Type: application/json" -d '{"message": "李四在哪里项目", "user_id": "test_user", "session_id": "test_session", "stream": false}'
+curl -X POST http://localhost:8001/api/v1/agent/completions -H "Content-Type: application/json" -d '{"message": "李四的项目名称是什么", "user_id": "test_user", "session_id": "test_session", "stream": false}'
 ```
 
 ## 开发路线图
 
 ### 计划功能
+- [ ] 支持用户选择不同模型
 - [ ] Docker容器化
-- [ ] 多轮对话支持
 - [ ] 数据持久化层
 - [ ] 性能、评估等框架
 - [ ] 综合日志系统
